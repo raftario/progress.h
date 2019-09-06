@@ -14,21 +14,27 @@ void cross_sleep(unsigned int delay) {
     #endif
 }
 
-void progress(char format[10], unsigned int delay) {
-    for (unsigned int i = 0; i < 100; i++) {
-        pg_print(format, i, 100);
+void p(unsigned int delay) {
+    for (unsigned int i = 1; i <= 100; i++) {
+        progress_print(i, 100);
         cross_sleep(delay);
     }
-    pg_finish(format);
+}
+
+void pf(unsigned int delay, char format[12]) {
+    for (unsigned int i = 0; i <= 100; i++) {
+        progress_printf(i, 100, format);
+        cross_sleep(delay);
+    }
 }
 
 int main() {
-    progress("", 10);
-    progress(":", 10);
-    progress("+-", 10);
-    progress("(Xx)", 10);
-    progress("{Yy} 33", 10);
-    progress("<Zz> 10 0", 10);
+    p(10);
+    printf("\n");
+    pf(10, ":|~ 029 0");
+    printf("\n");
+    pf(10, "(=> ) 024 1");
+    printf("\n");
     
     return 0;
 }
