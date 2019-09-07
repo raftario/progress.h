@@ -58,3 +58,7 @@ For a complete example (the one used in the preview), see [`example.c`](example.
 ## How it works
 
 It just prints the current progress to stderr over the old one using the carriage return character. By default, the carriage return is placed at the beginning of the progress bar, which means you can only print text at the end of the progress bar. If you want to print text before it, use `progress_rprint` or `progress_rprintf`.
+
+## License
+
+This library is unlicensed and released as is into the public domain. You are free to use it in any project, however you want. See [LICENSE](LICENSE) for details.
