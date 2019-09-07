@@ -25,41 +25,41 @@ void _progress_progress_print(unsigned long int current, unsigned long int max, 
         fill_length--;
 
         for (unsigned char i = 0; i < fill_length; i++) {
-            printf("%c", fill);
+            fprintf(stderr, "%c", fill);
         }
-        printf("%c", head);
+        fprintf(stderr, "%c", head);
     }
     for (unsigned char i = 0; i < empty_length; i++) {
-        printf("%c", empty);
+        fprintf(stderr, "%c", empty);
     }
 }
 
 /// Prints a progress bar with delimiters
 void _progress_progress_print_d(unsigned long int current, unsigned long int max, char left, char fill, char head, char empty, char right, unsigned char length) {
-    printf("%c", left);
+    fprintf(stderr, "%c", left);
     _progress_progress_print(current, max, fill, head, empty, length);
-    printf("%c", right);
+    fprintf(stderr, "%c", right);
 }
 
 /// Prints a percentage
 void _progress_percentage_print(unsigned long int current, unsigned long int max) {
     unsigned char percentage = current / (max / 100);
-    printf("%3hhu%%", percentage);
+    fprintf(stderr, "%3hhu%%", percentage);
 }
 
 
 void _progress_print(unsigned long int current, unsigned long int max, unsigned char r) {
     if (!r) {
-        printf("\r");
+        fprintf(stderr, "\r");
     }
     _progress_progress_print_d(current, max, '[', '#', '#', ' ', ']', 20);
-    printf(" ");
+    fprintf(stderr, " ");
     _progress_percentage_print(current, max);
     if (r) {
-        printf("\r");
+        fprintf(stderr, "\r");
     }
 
-    fflush(stdout);
+    fflush(stderr);
 }
 
 void progress_print(unsigned long int current, unsigned long int max) {
@@ -81,7 +81,7 @@ int _progress_printf(unsigned long int current, unsigned long int max, char form
     char fill, head, empty;
 
     if (!r) {
-        printf("\r");
+        fprintf(stderr, "\r");
     }
 
     if (format_length == 3) {
@@ -100,15 +100,15 @@ int _progress_printf(unsigned long int current, unsigned long int max, char form
     }
 
     if (show_percentage) {
-        printf(" ");
+        fprintf(stderr, " ");
         _progress_percentage_print(current, max);
     }
 
     if (r) {
-        printf("\r");
+        fprintf(stderr, "\r");
     }
 
-    fflush(stdout);
+    fflush(stderr);
 }
 
 int progress_printf(unsigned long int current, unsigned long int max, char format[6], unsigned char length, unsigned char show_percentage) {

@@ -44,13 +44,13 @@ int main() {
 
     // Default progress bar
     p();
-    printf("\n");
+    fprintf(stderr, "\n");
     // No delimiters, no percentage, custom characters and length
     pf(":;-", 29, 0);
-    printf("\n");
+    fprintf(stderr, "\n");
     // Delimiters, percentage, custom characters and length
     pf("(=> )", 24, 1);
-    printf("\n");
+    fprintf(stderr, "\n");
     
     return 0;
 }
