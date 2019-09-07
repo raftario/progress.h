@@ -1,3 +1,5 @@
+// https://github.com/raftario/progress.h
+
 #include <string.h>
 #include <stdio.h>
 
@@ -69,34 +71,30 @@ void progress_rprint(unsigned long int current, unsigned long int max) {
 }
 
 
-int _progress_printf(unsigned long int current, unsigned long int max, char format[12], unsigned char r) {
+int _progress_printf(unsigned long int current, unsigned long int max, char format[6], unsigned char length, unsigned char show_percentage, unsigned char r) {
     unsigned char format_length = strlen(format);
 
-    if (format_length != 9 && format_length != 11) {
+    if (format_length != 3 && format_length != 5) {
         return 1;
     }
 
     char fill, head, empty;
-    unsigned char length, show_percentage;
 
     if (!r) {
         printf("\r");
     }
 
-    if (format_length == 9) {
-        int filled = sscanf(format, "%c%c%c %3hhu %1hhu", &fill, &head, &empty, &length, &show_percentage);
-        if (filled != 5) {
-            return 1;
-        }
-
+    if (format_length == 3) {
+        fill = format[0];
+        head = format[1];
+        empty = format[2];
         _progress_progress_print(current, max, fill, head, empty, length);
     } else {
-        char left, right;
+        char left = format[0], right = format[4];
 
-        int filled = sscanf(format, "%c%c%c%c%c %3hhu %1hhu", &left, &fill, &head, &empty, &right, &length, &show_percentage);
-        if (filled != 7) {
-            return 1;
-        }
+        fill = format[1];
+        head = format[2];
+        empty = format[3];
 
         _progress_progress_print_d(current, max, left, fill, head, empty, right, length);
     }
@@ -113,10 +111,10 @@ int _progress_printf(unsigned long int current, unsigned long int max, char form
     fflush(stdout);
 }
 
-int progress_printf(unsigned long int current, unsigned long int max, char format[12]) {
-    _progress_printf(current, max, format, 0);
+int progress_printf(unsigned long int current, unsigned long int max, char format[6], unsigned char length, unsigned char show_percentage) {
+    _progress_printf(current, max, format, length, show_percentage, 0);
 }
 
-int progress_rprintf(unsigned long int current, unsigned long int max, char format[12]) {
-    _progress_printf(current, max, format, 1);
+int progress_rprintf(unsigned long int current, unsigned long int max, char format[6], unsigned char length, unsigned char show_percentage) {
+    _progress_printf(current, max, format, length, show_percentage, 1);
 }

@@ -21,9 +21,9 @@ void p(unsigned int delay) {
     }
 }
 
-void pf(unsigned int delay, char format[12]) {
+void pf(unsigned int delay, char format[12], unsigned char length, unsigned char show_percentage) {
     for (unsigned int i = 0; i <= 100; i++) {
-        progress_printf(i, 100, format);
+        progress_printf(i, 100, format, length, show_percentage);
         cross_sleep(delay);
     }
 }
@@ -31,9 +31,9 @@ void pf(unsigned int delay, char format[12]) {
 int main() {
     p(10);
     printf("\n");
-    pf(10, ":|~ 029 0");
+    pf(10, ":;-", 29, 0);
     printf("\n");
-    pf(10, "(=> ) 024 1");
+    pf(10, "(=> )", 24, 1);
     printf("\n");
     
     return 0;
