@@ -13,7 +13,7 @@
 /// right:   Character to use as the right delimiter
 /// length:  Length of the progress bar
 
-/// Prints a progress bar without delimiters
+// Prints a progress bar without delimiters
 void _progress_progress_print(unsigned long int current, unsigned long int max, char fill, char head, char empty, unsigned char length) {
     unsigned char fill_length = current / (max / length);
     if (fill_length > length) {
@@ -34,14 +34,14 @@ void _progress_progress_print(unsigned long int current, unsigned long int max, 
     }
 }
 
-/// Prints a progress bar with delimiters
+// Prints a progress bar with delimiters
 void _progress_progress_print_d(unsigned long int current, unsigned long int max, char left, char fill, char head, char empty, char right, unsigned char length) {
     fprintf(stderr, "%c", left);
     _progress_progress_print(current, max, fill, head, empty, length);
     fprintf(stderr, "%c", right);
 }
 
-/// Prints a percentage
+// Prints a percentage
 void _progress_percentage_print(unsigned long int current, unsigned long int max) {
     unsigned char percentage = current / (max / 100);
     fprintf(stderr, "%3hhu%%", percentage);
