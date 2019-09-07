@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <time.h>
 #ifdef _WIN32
 #include <Windows.h>
 #else
@@ -6,6 +8,7 @@
 
 #include "progress.h"
 
+// Sleep for n milliseconds, OS independant
 void cross_sleep(unsigned int delay) {
     #ifdef _WIN32
     Sleep(delay);
@@ -14,26 +17,39 @@ void cross_sleep(unsigned int delay) {
     #endif
 }
 
-void p(unsigned int delay) {
-    for (unsigned int i = 1; i <= 100; i++) {
+void p() {
+    // Print progress from 0 to 100%
+    for (unsigned int i = 0; i <= 100; i++) {
+        // Use default progress bar
         progress_print(i, 100);
-        cross_sleep(delay);
+        // Sleep for an amount of time from 0 to 100ms between each iteration
+        cross_sleep(rand() % 100);
     }
 }
 
-void pf(unsigned int delay, char format[12], unsigned char length, unsigned char show_percentage) {
+void pf(char format[12], unsigned char length, unsigned char show_percentage) {
+    // Print progress from 0 to 100%
     for (unsigned int i = 0; i <= 100; i++) {
+        // Use customized progress bar
         progress_printf(i, 100, format, length, show_percentage);
-        cross_sleep(delay);
+        // Sleep for an amount of time from 0 to 100ms between each iteration
+        cross_sleep(rand() % 100);
     }
 }
 
 int main() {
-    p(10);
+    // Initialize random number generation
+    time_t t;
+    srand((unsigned) time(&t));
+
+    // Default progress bar
+    p();
     printf("\n");
-    pf(10, ":;-", 29, 0);
+    // No delimiters, no percentage, custom characters and length
+    pf(":;-", 29, 0);
     printf("\n");
-    pf(10, "(=> )", 24, 1);
+    // Delimiters, percentage, custom characters and length
+    pf("(=> )", 24, 1);
     printf("\n");
     
     return 0;
