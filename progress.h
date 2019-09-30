@@ -109,12 +109,16 @@ int _progress_printf(unsigned long int current, unsigned long int max, char form
     }
 
     fflush(stderr);
+    
+    return 0;
 }
 
 int progress_printf(unsigned long int current, unsigned long int max, char format[6], unsigned char length, unsigned char show_percentage) {
     _progress_printf(current, max, format, length, show_percentage, 0);
+    return 0;
 }
 
 int progress_rprintf(unsigned long int current, unsigned long int max, char format[6], unsigned char length, unsigned char show_percentage) {
     _progress_printf(current, max, format, length, show_percentage, 1);
+    return 0;
 }
